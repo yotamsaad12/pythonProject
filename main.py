@@ -218,6 +218,9 @@ quarterly_trends = df.groupby(['Quarter', 'Product']).agg(
     Total_Profit=('Profit', 'sum')
 ).reset_index()
 
+output_filename = "quarterly_trends.csv"
+quarterly_trends.to_csv(output_filename, index=False)
+
 # Rename columns for clarity
 quarterly_trends = quarterly_trends.rename(columns={
     'Total_Sales': 'Total_Quarterly_Sales',
@@ -230,16 +233,26 @@ quarterly_trends = quarterly_trends.rename(columns={
 low_profit_threshold = 0.07  # Profit Margin < 7%
 high_discount_threshold = 0.085  # Discount Impact > 8.5% (Top Quartile)
 
+
+output_filename = "underperforming_products_before.csv"
+df.to_csv(output_filename, index=False)
 # Filter the data based on criteria
 underperforming_products = df[
     (df['Profit Margin'] < low_profit_threshold) &
     (df['Discount Impact'] > high_discount_threshold)
 ]
 
+output_filename = "underperforming_products.csv"
+underperforming_products.to_csv(output_filename, index=False)
+
+
 # Select and sort the required columns
 underperforming_products = underperforming_products[[
     'Product', 'Segment', 'Sales', 'Profit', 'Discount Impact', 'Profit Margin'
 ]].sort_values(by='Profit Margin', ascending=True)
+
+output_filename = "underperforming_products.csv"
+underperforming_products.to_csv(output_filename, index=False)
 
 # Rename columns for better readability
 underperforming_products = underperforming_products.rename(columns={
