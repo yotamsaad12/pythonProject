@@ -79,7 +79,8 @@ def validate_and_fix_date(row):
             corrected_date = date
     except:
         # Handle invalid or unusual dates
-        corrected_date = pd.Timestamp(year=2013, month=row['Month Number'], day=1)  # Default correction
+        print(row['Date'])
+        # corrected_date = pd.Timestamp(year=2013, month=row['Month Number'], day=1)  # Default correction
 
     return corrected_date
 
